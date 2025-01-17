@@ -13,18 +13,38 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: Testing test
-      id: testing-test
-      uses: classroom-resources/autograding-command-grader@v1
+    - name: i/o test
+      id: i-o-test
+      uses: classroom-resources/autograding-io-grader@v1
       with:
-        test-name: Testing test
+        test-name: i/o test
         setup-command: ''
         command: python autograder.py
+        input: ''
+        expected-output: "\n\nQuestion q1\n===========\n\nPassed a = 1 and b = 1,
+          returning a + b = 2\n*** PASS: test_cases/q1/addition1.test\n*** \tadd(a,b)
+          returns the sum of a and b\nPassed a = 2 and b = 3, returning a + b = 5\n***
+          PASS: test_cases/q1/addition2.test\n*** \tadd(a,b) returns the sum of a
+          and b\nPassed a = 10 and b = -2.1, returning a + b = 7.9\n*** PASS: test_cases/q1/addition3.test\n***
+          \tadd(a,b) returns the sum of a and b\n\n### Question q1: 1/1 ###\n\n\nQuestion
+          q2\n===========\n\n*** PASS: test_cases/q2/food_price1.test\n*** \tbuyLotsOfFruit
+          correctly computes the cost of the order\n*** PASS: test_cases/q2/food_price2.test\n***
+          \tbuyLotsOfFruit correctly computes the cost of the order\n*** PASS: test_cases/q2/food_price3.test\n***
+          \tbuyLotsOfFruit correctly computes the cost of the order\n\n### Question
+          q2: 1/1 ###\n\n\nQuestion q3\n===========\n\nWelcome to shop1 fruit shop\nWelcome
+          to shop2 fruit shop\n*** PASS: test_cases/q3/select_shop1.test\n*** \tshopSmart(order,
+          shops) selects the cheapest shop\nWelcome to shop1 fruit shop\nWelcome to
+          shop2 fruit shop\n*** PASS: test_cases/q3/select_shop2.test\n*** \tshopSmart(order,
+          shops) selects the cheapest shop\nWelcome to shop1 fruit shop\nWelcome to
+          shop2 fruit shop\nWelcome to shop3 fruit shop\n*** PASS: test_cases/q3/select_shop3.test\n***
+          \tshopSmart(order, shops) selects the cheapest shop\n\n### Question q3:
+          1/1 ###\n\n\n"
+        comparison-method: contains
         timeout: 1
         max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        TESTING-TEST_RESULTS: "${{steps.testing-test.outputs.result}}"
+        I-O-TEST_RESULTS: "${{steps.i-o-test.outputs.result}}"
       with:
-        runners: testing-test
+        runners: i-o-test
