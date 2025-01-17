@@ -13,15 +13,18 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
-    - name: test
-      id: test
-      uses: classroom-resources/autograding-python-grader@v1
+    - name: Testing test
+      id: testing-test
+      uses: classroom-resources/autograding-command-grader@v1
       with:
-        timeout: 1
+        test-name: Testing test
         setup-command: ''
+        command: python autograder.py
+        timeout: 1
+        max-score: 10
     - name: Autograding Reporter
       uses: classroom-resources/autograding-grading-reporter@v1
       env:
-        TEST_RESULTS: "${{steps.test.outputs.result}}"
+        TESTING-TEST_RESULTS: "${{steps.testing-test.outputs.result}}"
       with:
-        runners: test
+        runners: testing-test
